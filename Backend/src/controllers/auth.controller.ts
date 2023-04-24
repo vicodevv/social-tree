@@ -1,43 +1,43 @@
 import {Request, Response} from 'express';
-const errorHandler = require('../utils/errorHandler');
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+import { userService } from "../service/user.service";
+import { validationResult } from "express-validator";
+import { Serializer } from '../serializers/serializers';
 require('dotenv').config();
 
-const register = async (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    try {   
-        const user = await User.create({username, email, password: hashedPassword});
-        res.status(201).json({message: "User created successfully", success: true});
-    } catch (error) {
-        const errors = errorHandler(error);
-        res.status(errors.status).json({message: errors.message, success: false});
-    }
-}   
-
-const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    try {
-        const user = await User.findOne({email});
-        if(user){
-            const isMatch = await bcrypt.compare(password, user.password);
-            if(isMatch){
-                const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
-                res.status(200).json({message: "Login successful", success: true, token});
-            }else{
-                res.status(400).json({message: "Password incorrect", success: false});
-            }
-        }else{
-            res.status(404).json({message: "User not found", success: false});
+export const AuthController = {
+    /* register/create new user */
+    register: async (req: Request, res: Response) => {
+      try {
+        const errors = validationResult(req);
+        // if there is error then return Error
+        if (!errors.isEmpty()) {
+          return res.status(400).json({
+            status: "error",
+            errors: errors.array(),
+          });
         }
-    } catch (error) {
-        const errors = errorHandler(error);
-        res.status(errors.status).json({message: errors.message, success: false});
-    }
-}
-
-module.exports = {register, login}
+        const user = req.body;
+        if (!user.email || !user.password) {
+          return res.status(400).send({
+            status: "error",
+            message: "Username and password are required.",
+          });
+        }
+        const reg_user = await userService.createUser({
+          username: user.username,
+          email: user.email,
+          password: user.password,
+        });
+        res.json({
+          status: "success",
+          message: "user created successfuly",
+          data: Serializer.userSerializer(reg_user),
+        });
+      } catch (err: any) {
+        res.status(500).json({ status: "error", message: err.message });
+      }
+    },  
+};

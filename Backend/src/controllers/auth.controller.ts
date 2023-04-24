@@ -8,7 +8,7 @@ import { Serializer } from '../serializers/serializers';
 require('dotenv').config();
 
 export const AuthController = {
-    /* register/create new user */
+    //Create new user
     register: async (req: Request, res: Response) => {
       try {
         const errors = validationResult(req);
@@ -26,10 +26,12 @@ export const AuthController = {
             message: "Username and password are required.",
           });
         }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
         const reg_user = await userService.createUser({
           username: user.username,
           email: user.email,
-          password: user.password,
+          password: hashedPassword,
         });
         res.json({
           status: "success",
@@ -40,4 +42,9 @@ export const AuthController = {
         res.status(500).json({ status: "error", message: err.message });
       }
     },  
+
+    //Login user
+    login: async (req: Request, res: Response) => {
+
+    }
 };

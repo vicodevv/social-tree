@@ -39,3 +39,5 @@ const login = async (req: Request, res: Response) => {
         res.status(errors.status).json({message: errors.message, success: false});
     }
 }
+
+module.exports = {register, login}

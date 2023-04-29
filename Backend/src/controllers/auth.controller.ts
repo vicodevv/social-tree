@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-const User = require("../models/user.model");
+import User from "../models/user.model";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 import { userService } from "../service/user.service";
@@ -47,7 +47,7 @@ export const AuthController = {
   login: async (req: Request, res: Response) => {
     try {
       const errors = validationResult(req);
-
+      
       // return error if there is error
       if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -57,15 +57,13 @@ export const AuthController = {
       }
 
       // check if user is existing
-      const user = await User.find({
-        email: req.body.email,
-      });
+      const user = await User.findOne({ email: req.body.email });
       if (!user) {
-        return res.status(400).send({
-          status: "error",
-          message: "No account is associated with the given email",
-        });
+        return res
+          .status(400)
+          .send({ status: "error", message: "Invalid email" });
       }
+
 
       // compare password
       const isMatch = await bcrypt.compare(req.body.password, user.password);

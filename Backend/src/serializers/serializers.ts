@@ -8,6 +8,7 @@ const abstractSerializer = (dict: any, fields: string[]) => {
     return data;
   };
   const userFields: string[] = ["username", "email", "password"];
+  const linkFields: string[] = ["title", "url", "description"];
   
   export const Serializer = {
     userSerializer: (user: any) => abstractSerializer(user, userFields),
@@ -18,4 +19,12 @@ const abstractSerializer = (dict: any, fields: string[]) => {
       });
         return data;
     },
+    linkSerializer: (link: any) => abstractSerializer(link, linkFields),
+    linksSerializer: (links: any) => {
+      const data: any[] = [];
+      links.forEach((link: any) => {
+        data.push(Serializer.linkSerializer(link));
+      });
+        return data;
+    }
 };

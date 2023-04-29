@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import authRouter from "./auth.routes";
+import LinkRouter from "./link.routes";
 
 const apiRouter = express.Router();
 
@@ -8,4 +9,5 @@ apiRouter.get("/", (req: Request, res: Response) => {
 });
 
 apiRouter.use("/auth", authRouter);
+apiRouter.use("/link", LinkRouter);
 export default apiRouter;

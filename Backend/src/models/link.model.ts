@@ -17,6 +17,11 @@ const LinkSchema = new Schema({
         required: true,
         lowercase: true,
     },
+    username: {
+        type: String,
+        required: true,
+        lowercase: true,
+    },
     description: {
         type: String,
         required: false,

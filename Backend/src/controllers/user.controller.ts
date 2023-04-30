@@ -17,4 +17,16 @@ export const UserController = {
         }
     },
 
+    //Get user by id
+    getUserById: async (req: Request, res: Response) => {
+        try {
+            const user = await userService.getUserById(req.params.id);
+            res.json({
+                status: "success",
+                data: Serializer.userSerializer(user),
+            });
+        } catch (error: any) {
+            res.status(500).json({ status: "error", message: error.message });
+        }
+    },
 }

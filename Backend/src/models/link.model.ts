@@ -1,9 +1,10 @@
 import { model, Schema } from "mongoose";
+const mongoose = require('mongoose')
 import bcrypt from "bcryptjs";
 
 const LinkSchema = new Schema({
     userId: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true,
     },

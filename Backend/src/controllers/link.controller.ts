@@ -49,6 +49,7 @@ export const LinkController = {
     getAllFromUser: async (req: Request, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];
         const id = req.params.id;
+
         if(token){
             jwt.verify(token, process.env.JWT_SECRET, async (err: any, decodedToken: any) => {
                 if(err){
@@ -58,12 +59,10 @@ export const LinkController = {
                     });
                 }else{
                     try {
-                        const user = await User.findById(decodedToken.id);
-                        const { _id } = user._doc;
-                        const links = await Link.findById(id, {userId: _id});
+                        const links = await Link.find({userId: id});
                         res.status(200).json({
                             status: "success",
-                            data: Serializer.linkSerializer(links),
+                            links
                         });
                     } catch (error: any) {
                         res.status(500).json({

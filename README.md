@@ -5,6 +5,7 @@ This API allows you to share multiple social media links. It is built with NodeJ
 This API was developed with the following technologies:
 - NodeJS
 - Express
+- Typescript
 - MongoDB
 - Mongoose
 - JWT

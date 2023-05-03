@@ -43,6 +43,11 @@ To deploy this project run
   npm run:dev
 ```
 
+## Authentication
+This API uses JWT for authentication. To get a token, you need to register and login. The token is valid for 24 hours. You can use the token to access protected routes. To access authenticated routes, set your authorization header to Bearer [ token ]. Read postman documentation for further details
+## Postman Documentation
+https://documenter.getpostman.com/view/17026180/2s93eVWZDM
+
 
 ## License
 

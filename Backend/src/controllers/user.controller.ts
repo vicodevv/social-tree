@@ -8,6 +8,11 @@ export const UserController = {
     getAllUsers: async (req: Request, res: Response) => {
         try {
             const users = await userService.getAllUsers();
+            let id = 1;
+            users.forEach((user) => {
+                user.id = id;
+                id++;
+            });
             res.json({
                 status: "success",
                 data: Serializer.usersSerializer(users),

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 import Link  from "../models/link.model";
 import User from "../models/user.model";
 import { LinkService } from "../service/link.service";
+import { any } from "zod";
 require('dotenv').config();
 
 interface userRequest extends Request {
@@ -41,5 +42,63 @@ export const LinkController = {
                 
             }); 
         }
+    },
+
+    //Update link
+    update: async (req: Request, res: Response) => {
+        const token = req.headers.authorization;
+        const id = req.params.id;
+        const title = req.body.title;
+        const url = req.body.url;
+
+        if(token){
+            jwt.verify(token, process.env.JWT_SECRET, async (err: any, decodedToken: any) => {
+                if(err){    
+                    res.status(401).json({status: "error", message: "Invalid token"});
+                }else{
+                    try {
+                        const user = await User.findById(decodedToken.id);
+                        const { _id } = user._doc;
+                        const newLink = await Link.findByIdAndUpdate(id, {title, url, userId: _id}, {new: true});
+                        res.status(201).json({
+                            status: "success",
+                            data: Serializer.linkSerializer(newLink),
+                        });
+                    } catch (err) {
+                        
+                    }
+                }
+            });
+        }else{
+            res.status(401).json({status: "error", message: "Please Log In"});
+        }
+    },
+
+    //Delete link
+    delete: async (req: Request, res: Response) => {
+        const token = req.headers.authorization;
+        const id = req.params.id;
+
+        if(token){
+            jwt.verify(token, process.env.JWT_SECRET, async (err: any, decodedToken: any) => {
+                if(err){    
+                    res.status(401).json({status: "error", message: "Invalid token"});
+                }else{
+                    try {
+                        const user = await User.findById(decodedToken.id);
+                        const { _id } = user._doc;
+                        const newLink = await Link.findByIdAndDelete(id);
+                        res.status(201).json({
+                            status: "success",
+                            data: Serializer.linkSerializer(newLink),
+                        });
+                    } catch (err) {
+                        
+                    }
+                }
+            }
+        )}else{
+            res.status(401).json({status: "error", message: "Please Log In"});
+        }
     }
-} 
+}

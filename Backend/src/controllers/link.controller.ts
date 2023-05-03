@@ -27,7 +27,7 @@ export const LinkController = {
                         const links = await Link.find();
                         res.status(200).json({
                             status: "success",
-                            data: Serializer.linkSerializer(links),
+                            links
                         });
                     } catch (error: any) {
                         res.status(500).json({

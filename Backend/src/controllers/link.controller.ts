@@ -113,33 +113,3 @@ export const LinkController = {
         }
     }
 }
-
-
-//Create Link
-// const token = req.headers.authorization;                                                 
-//         console.log(token);
-//         const title = req.body.title;
-//         const url = req.body.url;
-
-//         if(token){
-//             jwt.verify(token, process.env.JWT_SECRET, async (err: any, decodedToken: any) => {
-//                 if(err){
-//                     res.status(401).json({status: "error", message: "Invalid token"});
-//                 }else{
-//                     try {
-//                         const user = await User.findById(decodedToken.id);
-//                         console.log(user);
-//                         const { username, _id } = user._doc;
-
-//                         const newLink = await Link.create({username, title, url, userId: _id});
-//                         res.status(201).json({
-//                             status: "success",
-//                             data: Serializer.linkSerializer(newLink),
-//                         });
-//                     } catch (error: any) {
-//                         res.status(500).json({ status: "error", message: error.message });
-//                     }
-//                 }
-                
-//             }); 
-//         }

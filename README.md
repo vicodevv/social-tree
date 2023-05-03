@@ -1,6 +1,5 @@
 # SOCIAL TREE API
-This API allows you to share multiple social media links. It is built with NodeJS, Express, MongoDB and Mongoose. It uses JWT for authentication. It is a REST API that supports CRUD operations. It is hosted on Render. You can check it out [here]
-
+This API allows you to share multiple social media links. It is built with NodeJS, Express, MongoDB and Mongoose. It uses JWT for authentication. It is a REST API that supports CRUD operations. It is hosted on Render. You can check it out [here](https://social-tree-api.onrender.com)
 ## Technologies
 This API was developed with the following technologies:
 - NodeJS
@@ -59,6 +58,32 @@ This API uses JWT for authentication. To get a token, you need to register and l
 
 ## Postman Documentation
 https://documenter.getpostman.com/view/17026180/2s93eVWZDM
+
+## Live Link
+https://social-tree-api.onrender.com
+
+## Environment Variables
+To run this project, you will need to add the following environment variables to your .env file
+PORT=3000
+MONGO_URI=your mongodb uri
+JWT_SECRET=your jwt secret
+
+## API Reference
+
+| Method | Description    | Endpoints  |
+| :-------- | :------- | :-------------- |
+| POST | Login a user | /api/auth/login |
+| POST | Register a user | /api/auth/register |
+| GET | Get all users | /api/users |
+| GET | Get a single user | /api/users/:id |
+| POST | Create a user | /api/users |
+| GET | Get all links | /api/links |
+| GET | Get a single link | /api/links/:id |
+| GET | Get all links by a user | /api/links/user/:id |
+| POST | Create a link | /api/links/create |
+| PUT | Update a link | /api/links/update/:id |
+| DELETE | Delete a link | /api/links/delete/:id |
+
 
 
 ## Authors

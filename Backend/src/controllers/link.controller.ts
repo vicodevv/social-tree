@@ -11,6 +11,70 @@ interface userRequest extends Request {
   }
 
 export const LinkController = {
+
+    //Get all links
+    getAll: async (req: Request, res: Response) => {
+        const token = req.headers.authorization?.split(" ")[1];
+        if(token){
+            jwt.verify(token, process.env.JWT_SECRET, async (err: any, decodedToken: any) => {
+                if(err){
+                    res.status(401).json({
+                        status: "error",
+                        message: "Invalid token"
+                    });
+                }else{
+                    try {
+                        const links = await Link.find();
+                        res.status(200).json({
+                            status: "success",
+                            data: Serializer.linkSerializer(links),
+                        });
+                    } catch (error: any) {
+                        res.status(500).json({
+                            status: "error",
+                            message: error.message
+                        });
+                    }
+                }
+            });
+        }
+    },
+
+    //Get one link
+    getOne: async (req: Request, res: Response) => {
+        //TODO: Get one link
+    },
+
+    //Get all links from user
+    getAllFromUser: async (req: Request, res: Response) => {
+        const token = req.headers.authorization?.split(" ")[1];
+        const id = req.params.id;
+        if(token){
+            jwt.verify(token, process.env.JWT_SECRET, async (err: any, decodedToken: any) => {
+                if(err){
+                    res.status(401).json({
+                        status: "error",
+                        message: "Invalid token"
+                    });
+                }else{
+                    try {
+                        const user = await User.findById(decodedToken.id);
+                        const { _id } = user._doc;
+                        const links = await Link.findById(id, {userId: _id});
+                        res.status(200).json({
+                            status: "success",
+                            data: Serializer.linkSerializer(links),
+                        });
+                    } catch (error: any) {
+                        res.status(500).json({
+                            status: "error",
+                            message: error.message
+                        });
+                    }
+                }
+            });
+        }
+    },
     //Create new link
     create: async (req: userRequest, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];

@@ -64,9 +64,9 @@ https://social-tree-api.onrender.com
 
 ## Environment Variables
 To run this project, you will need to add the following environment variables to your .env file
-PORT=3000
-MONGO_URI=your mongodb uri
-JWT_SECRET=your jwt secret
+- PORT=your port number
+- MONGO_URI=your mongodb uri
+- JWT_SECRET=your jwt secret
 
 ## API Reference
 

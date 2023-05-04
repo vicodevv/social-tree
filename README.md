@@ -1,12 +1,11 @@
 # SOCIAL TREE API
-This API allows you to share multiple social media links. It is built with NodeJS, Express, MongoDB and Mongoose. It uses JWT for authentication. It is a REST API that supports CRUD operations. It is hosted on Render. You can check it out [here](https://social-tree-api.onrender.com)
+This API allows you to share multiple social media links. It is built with NodeJS, Express, and MongoDB. It uses JWT for authentication. It is a REST API that supports CRUD operations. It is hosted on Render. You can check it out [here](https://social-tree-api.onrender.com)
 ## Technologies
 This API was developed with the following technologies:
 - NodeJS
 - Express
 - Typescript
 - MongoDB
-- Mongoose
 - JWT
 
 ## Getting Started

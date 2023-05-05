@@ -16,7 +16,7 @@ Pre-requisites
 
 You can get the latest version of NodeJS from [here](https://nodejs.org/en/download/) or you can check the version you have installed on your machine by running the following command in your terminal
 ```bash
-  node -v
+  node -v 
 ```
 
 You can get the latest version of NPM from [here](https://www.npmjs.com/get-npm) or you can check the version you have installed on your machine by running the following command in your terminal

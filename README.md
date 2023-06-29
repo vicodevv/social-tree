@@ -10,6 +10,7 @@ This API was developed with the following technologies:
 - Express
 - Typescript
 - MongoDB
+- JWT
 
 ## Getting Started
 

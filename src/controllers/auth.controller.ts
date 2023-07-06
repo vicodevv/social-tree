@@ -9,7 +9,12 @@ import { Serializer } from "../serializers/serializers";
 require("dotenv").config();
 
 export const AuthController = {
-  //Create new user
+  /**
+   * Controller function for register
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Promise<Response>}
+   * */
   register: async (req: Request, res: Response) => {
     let { username, email, password } = req.body;
     const salt = await bcrypt.genSalt(10);
@@ -30,7 +35,12 @@ export const AuthController = {
     }
   },
 
-  //Login user
+  /**
+ * Controller function for login
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Promise<Response>}
+ * */
   login: async (req: Request, res: Response) => {
       const { email, password } = req.body;
 

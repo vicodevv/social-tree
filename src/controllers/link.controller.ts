@@ -12,7 +12,12 @@ interface userRequest extends Request {
 
 export const LinkController = {
 
-    //Get all links
+    /**
+    * Controller function to get all links
+    * @param {Request} req
+    * @param {Response} res
+    * @returns {Promise<Response>}
+    * */
     getAll: async (req: Request, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];
         if(token){
@@ -45,7 +50,12 @@ export const LinkController = {
         //TODO: Get one link
     },
 
-    //Get all links from user
+    /**
+    * Controller function to get all links from a user
+    * @param {Request} req
+    * @param {Response} res
+    * @returns {Promise<Response>}
+    * */
     getAllFromUser: async (req: Request, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];
         const id = req.params.id;
@@ -74,7 +84,12 @@ export const LinkController = {
             });
         }
     },
-    //Create new link
+    /**
+     * Controller function to create a link
+     * @param {Request} req
+     * @param {Response} res
+     * @returns {Promise<Response>}
+     * */
     create: async (req: userRequest, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];
         const title = req.body.title;
@@ -117,7 +132,12 @@ export const LinkController = {
         }
     },
 
-    //Update link
+    /**
+     * Controller function to update a link
+     * @param {Request} req
+     * @param {Response} res
+     * @returns {Promise<Response>}
+     */
     update: async (req: Request, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];
         const id = req.params.id;
@@ -147,7 +167,12 @@ export const LinkController = {
         }
     },
 
-    //Delete link
+    /**
+     * Controller function to delete a link
+     * @param {Request} req
+     * @param {Response} res
+     * @returns {Promise<Response>}
+     * */
     delete: async (req: Request, res: Response) => {
         const token = req.headers.authorization?.split(" ")[1];
         console.log(token);
